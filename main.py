@@ -128,7 +128,7 @@ initial_state = [1, 0, 2, 3, 4, 5, 6, 7, 8]
 end_node = BFS(initial_state, goal_state)
 solution = sol(end_node, initial_state)
 for i in solution:
-    print i 
+    print(i) 
 
 
 
