@@ -1,4 +1,5 @@
 from collections import deque
+import heapq
 from state import State
 
 
@@ -13,13 +14,16 @@ initial_state = [
     7, 5, 4
 ]
 
-queue = deque([State(initial_state, None, 0, goal_state)])
+queue = [State(initial_state, None, 0, goal_state)]
 queue_popped = []
+
 queue_res = deque([])
 end_state = None
 
+queue[0].printBoard()
+
 while len(queue):
-    now = queue.popleft()
+    now = heapq.heappop(queue)
 
     isSameBefore = False
 
@@ -40,25 +44,29 @@ while len(queue):
 
     print("OKE " + str(len(queue)))
     if upState is not None:
+        #upState.printBoard()
         if upState.isSame(goal_state):
             end_state = upState
             break
-        queue.append(upState)
+        heapq.heappush(queue, upState)
     if downState is not None:
+        #downState.printBoard()
         if downState.isSame(goal_state):
             end_state = downState
             break
-        queue.append(downState)
+        heapq.heappush(queue, downState)
     if rightState is not None:
+        #rightState.printBoard()
         if rightState.isSame(goal_state):
             end_state = rightState
             break
-        queue.append(rightState)
+        heapq.heappush(queue, rightState)
     if leftState is not None:
+        #leftState.printBoard()
         if leftState.isSame(goal_state):
             end_state = leftState
             break
-        queue.append(leftState)
+        heapq.heappush(queue, leftState)
 
 while end_state is not None:
     queue_res.appendleft(end_state)
