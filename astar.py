@@ -21,6 +21,7 @@ queue_res = deque([])
 end_state = None
 
 queue[0].printBoard()
+maxDepth = 0
 
 while len(queue):
     now = heapq.heappop(queue)
@@ -42,30 +43,33 @@ while len(queue):
     leftState = now.expandLeft()
     rightState = now.expandRight()
 
-    print("OKE " + str(len(queue)))
     if upState is not None:
-        #upState.printBoard()
         if upState.isSame(goal_state):
             end_state = upState
             break
+        if upState.cost > maxDepth:
+            maxDepth = upState.cost
         heapq.heappush(queue, upState)
     if downState is not None:
-        #downState.printBoard()
         if downState.isSame(goal_state):
             end_state = downState
             break
+        if downState.cost > maxDepth:
+            maxDepth = downState.cost
         heapq.heappush(queue, downState)
     if rightState is not None:
-        #rightState.printBoard()
         if rightState.isSame(goal_state):
             end_state = rightState
             break
+        if rightState.cost > maxDepth:
+            maxDepth = downState.cost
         heapq.heappush(queue, rightState)
     if leftState is not None:
-        #leftState.printBoard()
         if leftState.isSame(goal_state):
             end_state = leftState
             break
+        if leftState.cost > maxDepth:
+            maxDepth = leftState.cost       
         heapq.heappush(queue, leftState)
 
 while end_state is not None:
@@ -73,7 +77,10 @@ while end_state is not None:
     end_state = end_state.parent
 
 step = 1
-
+print("Jumlah langkah yang ditelusuri: " + str(len(queue)) ) 
+print("Maximum Depth " + str(maxDepth) ) 
+print("Jumlah langkah solusi " + str(len(queue_res) - 1) ) 
+print("Solusi: ") 
 while len(queue_res):
     print("Step #" + str(step))
     queue_res.popleft().printBoard()
