@@ -78,10 +78,11 @@ class State:
         return False
 
     def isSame(self, otherBoard):
+        same = True
         for idx, val in enumerate(self.board):
             if val != otherBoard[idx]:
                 return False
-        return True
+        return same
 
     def printBoard(self):
         i = 0
@@ -105,5 +106,4 @@ class State:
         """
         :type other: State
         """
-        return self.cost + self.getHeuristic(self.goal_board) < other.cost + other.getHeuristic(self.goal_board)
-
+        return self.getHeuristic(self.goal_board) < other.getHeuristic(self.goal_board)
