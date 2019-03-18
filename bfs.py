@@ -20,6 +20,7 @@ end_state = None
 
 time = 0
 
+maxDepth = 0
 while len(queue):
     time += 1
     now = queue.popleft()
@@ -41,27 +42,36 @@ while len(queue):
     leftState = now.expandLeft()
     rightState = now.expandRight()
 
-
     if upState is not None:
         if upState.isSame(goal_state):
             end_state = upState
             break
+        if upState.cost > maxDepth:
+            maxDepth = upState.cost
         queue.append(upState)
     if downState is not None:
         if downState.isSame(goal_state):
             end_state = downState
             break
+        if downState.cost > maxDepth:
+            maxDepth = downState.cost
         queue.append(downState)
     if rightState is not None:
         if rightState.isSame(goal_state):
             end_state = rightState
             break
+        if rightState.cost > maxDepth:
+            maxDepth = rightState.cost
         queue.append(rightState)
     if leftState is not None:
         if leftState.isSame(goal_state):
             end_state = leftState
             break
+        if leftState.cost > maxDepth:
+            maxDepth = leftState.cost
         queue.append(leftState)
+
+
 
 while end_state is not None:
     queue_res.appendleft(end_state)
@@ -69,10 +79,14 @@ while end_state is not None:
 
 step = 0
 
+print("Jumlah Loop\t\t\t: " + str(time))
+print("Jumlah langkah yang ditelusuri\t: " + str(len(queue)) ) 
+print("Maximum Depth\t\t\t: " + str(maxDepth) ) 
+print("Jumlah langkah solusi\t\t: " + str(len(queue_res) - 1) ) 
+print("\nSolusi: \n") 
+
 while len(queue_res):
     print("Step #" + str(step))
     queue_res.popleft().printBoard()
     step += 1
 
-print("Jumlah Loop\t\t: " + str(time))
-print("Jumlah State di Queue\t: " + str(len(queue)))
