@@ -8,9 +8,9 @@ goal_state = [
     7, 6, 5
 ]
 initial_state = [
-    2, 8, 3,
-    1, 0, 6,
-    7, 5, 4
+    1, 0, 3,
+    2, 5, 4,
+    8, 7, 6
 ]
 
 queue = deque([State(initial_state, None, 0, goal_state)])
@@ -18,7 +18,10 @@ queue_popped = []
 queue_res = deque([])
 end_state = None
 
+time = 0
+
 while len(queue):
+    time += 1
     now = queue.popleft()
 
     isSameBefore = False
@@ -38,7 +41,7 @@ while len(queue):
     leftState = now.expandLeft()
     rightState = now.expandRight()
 
-    print("OKE " + str(len(queue)))
+
     if upState is not None:
         if upState.isSame(goal_state):
             end_state = upState
@@ -64,10 +67,12 @@ while end_state is not None:
     queue_res.appendleft(end_state)
     end_state = end_state.parent
 
-step = 1
+step = 0
 
 while len(queue_res):
     print("Step #" + str(step))
     queue_res.popleft().printBoard()
     step += 1
 
+print("Jumlah Loop\t\t: " + str(time))
+print("Jumlah State di Queue\t: " + str(len(queue)))
