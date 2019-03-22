@@ -3,14 +3,14 @@ from state import State
 
 
 goal_state = [
-    1, 2, 3,
-    8, 0, 4,
-    7, 6, 5
+    0,1,2,
+    3,4,5,
+    6,7,8
 ]
 initial_state = [
-    1, 0, 3,
-    2, 5, 4,
-    8, 7, 6
+    7,2,4,
+    5,0,6,
+    8,3,1
 ]
 
 queue = deque([State(initial_state, None, 0, goal_state)])
