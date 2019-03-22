@@ -105,9 +105,9 @@ class State:
             for val in self.board:
                 posNow = self.getPos(self.TYPE_BOARD_NOW, val)
                 posGoal = self.getPos(self.TYPE_BOARD_GOAL, val)
-                posNow_x = posNow % 3
+                posNow_x = posNow % 3 + 1
                 posNow_y = math.ceil(posNow / 3)
-                posGoal_x = posGoal % 3
+                posGoal_x = posGoal % 3 + 1
                 posGoal_y = math.ceil(posGoal / 3)
                 diff += abs(posNow_x - posGoal_x) + abs(posNow_y - posGoal_y)
             self.heuristic = diff
